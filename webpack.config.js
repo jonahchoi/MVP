@@ -30,7 +30,7 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.join(__dirname, 'client/src', 'index.html');
+      template: path.join(__dirname, 'client/src', 'index.html')
     })
   ]
 }
