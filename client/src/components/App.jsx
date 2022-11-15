@@ -1,19 +1,33 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 import UploadForm from './UploadForm.jsx';
 import SelectScreen from './SelectScreen.jsx';
+import Downloads from './Downloads.jsx';
+import Err404 from './Err404.jsx';
+import useStorage from '../Hooks/useStorage';
 
 const App = () => {
+  // const navigate = useNavigate();
+  let {uploadToStorage, getFromStorage, progress, currentId, err} = useStorage();
+
+  // useEffect(() => {
+  //   if(progress === 100) {
+  //     navigate(`/download/${currendId}`);
+  //   }
+  // }, [progress]);
 
   return(
     <BrowserRouter>
       <GlobalStyle />
-      <StickyHeader><h1>QuickSend</h1></StickyHeader>
+      <StickyHeader><HeaderLink to="/"><h1>QuickSend</h1></HeaderLink></StickyHeader>
+      <div>{progress}%</div>
       <Routes>
         <Route path='/'>
-          <Route index element={<SelectScreen/>}/>
-          <Route path='upload' element={<UploadForm />} />
+          <Route index element={<SelectScreen />}/>
+          <Route path='upload' element={<UploadForm uploadToStorage={uploadToStorage} progress={progress} />} />
+          <Route path='download/:id' element={<Downloads getFromStorage={getFromStorage} />} />
+          <Route path='*' element={<Err404 />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -46,6 +60,10 @@ const StickyHeader = styled.div`
   & h1 {
     margin: 0;
   }
+`
+const HeaderLink = styled(Link)`
+  color: #fff;
+  text-decoration: none;
 `
 
 export default App;
