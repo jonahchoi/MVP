@@ -34,7 +34,7 @@ const Downloads = ({ getFromStorage }) => {
 
   return (
     <ColumnFlex>
-      <img src={metadata?.url}/>
+      <img src={metadata?.url} width='35%' height="auto" />
       <div>
         {metadata?.name}
       </div>
