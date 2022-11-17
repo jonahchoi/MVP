@@ -1,6 +1,8 @@
 import React, { useRef } from 'react'
 import { ColumnFlex } from './Styles.jsx';
 import styled from 'styled-components';
+import CommonButton from './CommonButton.jsx';
+
 const Verification = ({ queryFromStorage, navigate }) => {
   const codeRef = useRef();
 
@@ -21,7 +23,7 @@ const Verification = ({ queryFromStorage, navigate }) => {
         6-digit ID:
       </label>
       <input id="code-input" ref={codeRef} type="text" />
-      <button type="submit">Submit</button>
+      <CommonButton type="submit" text="Submit"></CommonButton>
     </ColumnFlex>
   )
 }

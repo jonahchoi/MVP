@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, useAnimation } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { ColumnFlex } from './Styles.jsx';
+import AnimatedButton from './AnimatedButton.jsx';
 
+/*
+  TODO:
+  Animate loading screen dots
+*/
 const SelectScreen = ({ firstLoad }) => {
   const rightControls = useAnimation();
   const leftControls = useAnimation();
@@ -59,22 +63,22 @@ const SelectScreen = ({ firstLoad }) => {
       <LeftSide
       animate={leftControls}>
         <h2>Sending files is as easy as 1, 2, 3</h2>
-        <p>using QR Codes</p>
+        <p>lorem ipsum doloris</p>
       </LeftSide>
       <RightSide
       animate={rightControls}>
         <VerticalContainer
         as={motion.div}
         animate={innerRightControls}>
-          <ButtonDiv
-
-          >
-            <HalfButton to="/upload">Upload</HalfButton>
-          </ButtonDiv>
+          <AnimatedButton direction={'upload'} />
           <VerticalBar />
+          <AnimatedButton direction={'download'}/>
+          {/* <ButtonAnimate>
+            <HalfButton to="/upload">Upload</HalfButton>
+          </ButtonAnimate>
           <ButtonDiv>
             <HalfButton HalfButton to="/download">Download</HalfButton>
-          </ButtonDiv>
+          </ButtonDiv> */}
         </VerticalContainer>
       </RightSide>
     </HalfScreens>
@@ -114,19 +118,20 @@ const VerticalBar = styled.div`
   height:5px;
   width: 100%;
 `
-const HalfButton = styled(Link)`
-  height:100%;
-  width: 100%;
-  font-size: 4rem;
-  color: inherit;
+
+
+
+/* background: $bcolor;
+
+ border: $bor;
+ color: $col;
+@include button(#000,
+  "",
+  2300%,
+  100%,
+  none,
+  #fff);
   cursor: pointer;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-`
-const ButtonDiv = styled(motion.div)`
-  height:100%;
-  width: 100%;
-`
+ */
+
 export default SelectScreen;

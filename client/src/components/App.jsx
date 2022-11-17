@@ -64,14 +64,14 @@ const App = () => {
           }}
         />
       </HeaderLink>
-      <AnimatePresence initial={false}>
+      <AnimatePresence>
         <Routes>
-          <Route path='/'element={<SelectScreen firstLoad={firstLoad} />}/>
-          <Route path='/upload' element={<UploadForm uploadToStorage={uploadToStorage} progress={progress} />} />
-          <Route path='/share/:id' element={<Share getFromStorage={getFromStorage} navigate={navigate} />} />
-          <Route path="/download" element={<Verification queryFromStorage={queryFromStorage} navigate={navigate} />} />
-          <Route path='/download/:id' element={<Downloads getFromStorage={getFromStorage} />} />
-          <Route path='/*' element={<Err404 />} />
+          <Route path='/'element={<SelectScreen key="select" firstLoad={firstLoad} />}/>
+          <Route path='/upload' element={<UploadForm key="upload" uploadToStorage={uploadToStorage} progress={progress} />} />
+          <Route path='/share/:id' element={<Share key="share" getFromStorage={getFromStorage} navigate={navigate} />} />
+          <Route path="/download" element={<Verification key="verify" queryFromStorage={queryFromStorage} navigate={navigate} />} />
+          <Route path='/download/:id' element={<Downloads key="download" getFromStorage={getFromStorage} />} />
+          <Route path='/*' element={<Err404 key="fourohfour" />} />
         </Routes>
       </AnimatePresence>
     </HomePage>
