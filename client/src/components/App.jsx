@@ -30,7 +30,10 @@ const App = () => {
 
   useEffect(() => {
     if(progress === 100 && firestoreId) {
-      navigate(`/share/${firestoreId}`);
+      let timer = setTimeout(()=> {
+        navigate(`/share/${firestoreId}`);
+      }, 750)
+      return ()=>clearTimeout(timer);
     }
   }, [firestoreId]);
 
@@ -63,14 +66,12 @@ const App = () => {
       </HeaderLink>
       <AnimatePresence initial={false}>
         <Routes>
-          {/* <Route path='/'> */}
-            <Route path='/'element={<SelectScreen firstLoad={firstLoad} />}/>
-            <Route path='/upload' element={<UploadForm uploadToStorage={uploadToStorage} progress={progress} />} />
-            <Route path='/share/:id' element={<Share getFromStorage={getFromStorage} navigate={navigate} />} />
-            <Route path="/download" element={<Verification queryFromStorage={queryFromStorage} navigate={navigate} />} />
-            <Route path='/download/:id' element={<Downloads getFromStorage={getFromStorage} />} />
-            <Route path='/*' element={<Err404 />} />
-          {/* </Route> */}
+          <Route path='/'element={<SelectScreen firstLoad={firstLoad} />}/>
+          <Route path='/upload' element={<UploadForm uploadToStorage={uploadToStorage} progress={progress} />} />
+          <Route path='/share/:id' element={<Share getFromStorage={getFromStorage} navigate={navigate} />} />
+          <Route path="/download" element={<Verification queryFromStorage={queryFromStorage} navigate={navigate} />} />
+          <Route path='/download/:id' element={<Downloads getFromStorage={getFromStorage} />} />
+          <Route path='/*' element={<Err404 />} />
         </Routes>
       </AnimatePresence>
     </HomePage>

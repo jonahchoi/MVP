@@ -66,9 +66,15 @@ const SelectScreen = ({ firstLoad }) => {
         <VerticalContainer
         as={motion.div}
         animate={innerRightControls}>
-          <HalfButton to="/upload">Upload</HalfButton>
+          <ButtonDiv
+
+          >
+            <HalfButton to="/upload">Upload</HalfButton>
+          </ButtonDiv>
           <VerticalBar />
-          <HalfButton to="/download">Download</HalfButton>
+          <ButtonDiv>
+            <HalfButton HalfButton to="/download">Download</HalfButton>
+          </ButtonDiv>
         </VerticalContainer>
       </RightSide>
     </HalfScreens>
@@ -119,5 +125,8 @@ const HalfButton = styled(Link)`
   align-items: center;
   text-decoration: none;
 `
-
+const ButtonDiv = styled(motion.div)`
+  height:100%;
+  width: 100%;
+`
 export default SelectScreen;
