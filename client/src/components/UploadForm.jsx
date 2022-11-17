@@ -3,23 +3,20 @@ import QRCode from 'qrcode';
 import styled from 'styled-components';
 import axios from 'axios';
 import FormData from 'form-data';
-import { useNavigate } from 'react-router-dom';
+import ProgressModal from './ProgressModal.jsx';
+import { ColumnFlex, QRImg } from './Styles.jsx';
 
 const UploadForm = ({ uploadToStorage, progress }) => {
   const [uploadQR, setUploadQR] = useState(null);
   const [file, setFile] = useState(null);
-  const navigate = useNavigate();
+  const [uploadRef, setUploadRef] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     QRCode.toDataURL('http://localhost:3000/upload', (err, res) => {
       setUploadQR(res);
     })
   }, []);
-  useEffect(() => {
-    if(progress === 100) {
-      navigate('/download');
-    }
-  }, [progress]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,36 +25,34 @@ const UploadForm = ({ uploadToStorage, progress }) => {
       alert('Please select a file first');
       return;
     }
-    uploadToStorage(file);
-
+    setUploadRef(uploadToStorage(file));
+    setIsLoading(true);
   }
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   }
 
+  const resetLoading = () => {
+    setIsLoading(false);
+  }
+
   return (
-    <FormLayout onSubmit={handleSubmit}>
+    <ColumnFlex as="form" onSubmit={handleSubmit}>
       <p>Scan to upload from your mobile device</p>
-      <img src={uploadQR} height="250px" width="250px" />
+      <QRImg src={uploadQR} />
       <p>...or upload a file here</p>
       <FileInput>
         Choose a File...
         <input type="file" onChange={handleFileChange}/>
       </FileInput>
       <p>{file && file.name}</p>
-      <button type="submit" >Submit</button>
-    </FormLayout>
+      <button type="submit">Upload</button>
+      {isLoading ? <ProgressModal progress={progress} uploadRef={uploadRef} resetLoading={resetLoading} /> : null}
+    </ColumnFlex>
   )
 }
 
-const FormLayout = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-`
 
 const FileInput = styled.label`
   background-color: #fff;

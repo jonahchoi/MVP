@@ -1,34 +1,45 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { ColumnFlex } from './Styles.jsx';
 
 const Downloads = ({ getFromStorage }) => {
   const { id } = useParams();
+  const [metadata, setMetadata] = useState(null);
 
   useEffect(() => {
-    let metadata = getFromStorage(id);
-    console.log(metadata);
+    (async () => {
+      let result = await getFromStorage(id);
+      setMetadata(result);
+    })();
   }, [id]);
 
   const download = async () => {
-    /* let result = await axios.get(url, {
-      responseType: 'blob'
-    });
-    const tempUrl = URL.createObjectURL(result.data);
-    const link = document.createElement('a');
-    link.href = tempUrl;
-    //SET NAME FOR DOWNLOAD
-    link.setAttribute('download', 'download');
-    document.body.appendChild(link);
-    link.click();
+    if(metadata) {
+      let result = await axios.get(metadata.url, {
+        responseType: 'blob'
+      });
+      const tempUrl = URL.createObjectURL(result.data);
+      const link = document.createElement('a');
+      link.href = tempUrl;
+      //SET NAME FOR DOWNLOAD
+      link.setAttribute('download', metadata.name);
+      document.body.appendChild(link);
+      link.click();
 
-    document.body.removeChild(link);
-    URL.revokeObjectURL(tempUrl); */
+      document.body.removeChild(link);
+      URL.revokeObjectURL(tempUrl);
+    }
   }
+
   return (
-    <div>
+    <ColumnFlex>
+      <img src={metadata?.url}/>
+      <div>
+        {metadata?.name}
+      </div>
       <button type="button" onClick={download}>Download</button>
-    </div>
+    </ColumnFlex>
   )
 }
 

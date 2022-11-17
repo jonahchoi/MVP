@@ -4,7 +4,8 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: path.join(__dirname, 'client/src', 'index.js'),
   output: {
-    path: path.resolve(__dirname, 'client/dist')
+    path: path.resolve(__dirname, 'client/dist'),
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -18,19 +19,19 @@ module.exports = {
           }
         }
       },
-      /* {
+      {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(png|jp(e*)g|svg|gif)$/,
         use: ['file-loader'], //or url-loader?
-      }, */
+      },
     ]
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.join(__dirname, 'client/src', 'index.html')
+      template: path.join(__dirname, 'client/src', 'index.html'),
     })
   ]
 }
