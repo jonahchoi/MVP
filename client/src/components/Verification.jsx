@@ -1,34 +1,60 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ColumnFlex } from './Styles.jsx';
 import styled from 'styled-components';
 import CommonButton from './CommonButton.jsx';
+import RICIBs from 'react-individual-character-input-boxes';
 
-const Verification = ({ queryFromStorage, navigate }) => {
-  const codeRef = useRef();
+const Verification = ({ queryFromStorage, navigate, returnHome }) => {
+  const [inputCode, setInputCode] = useState('');
+  const [inputErr, setInputErr] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      let id = await queryFromStorage(codeRef.current.value);
+      let id = await queryFromStorage(inputCode);
 
       navigate(`/download/${id}`);
     } catch(err) {
-      console.log(err);
+      setInputErr(true);
     }
-
   }
+  const handleOutput = (str) => {
+    setInputCode(str);
+  }
+  useEffect(() => {
+    if(inputErr) {
+      setInputErr(false);
+    }
+  }, [inputCode])
   return (
     <ColumnFlex as="form" onSubmit={handleSubmit}>
-      <label htmlFor="code-input">
-        6-digit ID:
-      </label>
-      <input id="code-input" ref={codeRef} type="text" />
-      <CommonButton type="submit" text="Submit"></CommonButton>
+      <Label htmlFor="code-input">
+        Download ID:
+      </Label>
+      <RICIBs
+      inputProps={
+        {id: "code-input"}
+      }
+      amount={6}
+      autoFocus
+      handleOutputString={handleOutput}
+      inputRegExp={/^[A-Za-z0-9]$/}/>
+      <ButtonContainer>
+        <CommonButton type="button" text="Cancel" neg={true} onClick={returnHome}></CommonButton>
+        <CommonButton type="submit" text={inputErr ? 'Invalid ID' : 'Submit'}></CommonButton>
+      </ButtonContainer>
     </ColumnFlex>
   )
 }
-
-
-
+const Label = styled.label`
+  font-size: 1.5rem;
+  margin: 10px;
+`
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  padding: 0;
+`
 
 export default Verification

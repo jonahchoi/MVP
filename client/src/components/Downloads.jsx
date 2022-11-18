@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { ColumnFlex } from './Styles.jsx';
+import CommonButton from './CommonButton.jsx';
 
 const Downloads = ({ getFromStorage }) => {
   const { id } = useParams();
@@ -38,7 +39,7 @@ const Downloads = ({ getFromStorage }) => {
       <div>
         {metadata?.name}
       </div>
-      <button type="button" onClick={download}>Download</button>
+      <CommonButton type="button" onClick={download} text="Download"></CommonButton>
     </ColumnFlex>
   )
 }

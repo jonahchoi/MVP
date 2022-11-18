@@ -4,6 +4,7 @@ import QRCode from 'qrcode';
 import styled from 'styled-components';
 import { ColumnFlex, QRImg } from './Styles.jsx';
 import Socials from './Socials.jsx';
+import CopyToClipboardButton from './CopyButton.jsx';
 
 const Share = ({ getFromStorage, navigate }) => {
   const { id } = useParams();
@@ -51,9 +52,9 @@ const Share = ({ getFromStorage, navigate }) => {
   return (
     <ShareScreen>
       <QRImg src={qr} />
-      <button onClick={copyImgToClip}><i className="fa-regular fa-clipboard"></i></button>
+      <CopyToClipboardButton onClick={copyImgToClip} />
       <p>{idCode}</p>
-      <button onClick={()=>copyToClip(idCode)}><i className="fa-regular fa-clipboard"></i></button>
+      <CopyToClipboardButton onClick={()=>copyToClip(idCode)} />
       <Socials link={`http://localhost:1111/download/${id}`} code={idCode} />
     </ShareScreen>
   )

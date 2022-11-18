@@ -48,6 +48,10 @@ const App = () => {
     }
   }, []);
 
+  const returnHome = () => {
+    navigate('/');
+  }
+
   return(
     <HomePage>
       <GlobalStyle />
@@ -67,9 +71,9 @@ const App = () => {
       <AnimatePresence>
         <Routes>
           <Route path='/'element={<SelectScreen key="select" firstLoad={firstLoad} />}/>
-          <Route path='/upload' element={<UploadForm key="upload" uploadToStorage={uploadToStorage} progress={progress} />} />
+          <Route path='/upload' element={<UploadForm key="upload" uploadToStorage={uploadToStorage} progress={progress} returnHome={returnHome} />} />
           <Route path='/share/:id' element={<Share key="share" getFromStorage={getFromStorage} navigate={navigate} />} />
-          <Route path="/download" element={<Verification key="verify" queryFromStorage={queryFromStorage} navigate={navigate} />} />
+          <Route path="/download" element={<Verification key="verify" queryFromStorage={queryFromStorage} navigate={navigate} returnHome={returnHome} />} />
           <Route path='/download/:id' element={<Downloads key="download" getFromStorage={getFromStorage} />} />
           <Route path='/*' element={<Err404 key="fourohfour" />} />
         </Routes>
