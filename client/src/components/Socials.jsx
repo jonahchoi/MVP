@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Socials = ({link, code}) => {
-  console.log('link:', link);
-  console.log('code:', code);
+  // console.log('link:', link);
+  // console.log('code:', code);
 
   const codeLink = 'http://localhost:1111/download';
 

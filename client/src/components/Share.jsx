@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import QRCode from 'qrcode';
 import styled from 'styled-components';
-import { ColumnFlex, QRImg } from './Styles.jsx';
+import { ColumnFlex, QRImg, HalfScreens, VerticalBar, CenterText } from './Styles.jsx';
 import Socials from './Socials.jsx';
 import CopyToClipboardButton from './CopyButton.jsx';
 
@@ -50,18 +50,42 @@ const Share = ({ getFromStorage, navigate }) => {
 
   }
   return (
-    <ShareScreen>
-      <QRImg src={qr} />
-      <CopyToClipboardButton onClick={copyImgToClip} />
-      <p>{idCode}</p>
-      <CopyToClipboardButton onClick={()=>copyToClip(idCode)} />
+    <HalfScreens>
+      <LeftSide>
+        <p>Share a QR Code</p>
+        <QRImg src={qr} />
+        <CopyToClipboardButton onClick={copyImgToClip} />
+      </LeftSide>
+      <VerticalBar >
+        <CenterText>OR</CenterText>
+      </VerticalBar>
+      <RightSide>
+        <p>Share a custom ID</p>
+        <CodeP>{idCode}</CodeP>
+        <CopyToClipboardButton onClick={()=>copyToClip(idCode)} />
       <Socials link={`http://localhost:1111/download/${id}`} code={idCode} />
-    </ShareScreen>
+      </RightSide>
+    </HalfScreens>
   )
 }
 
-const ShareScreen = styled(ColumnFlex)`
-
+const LeftSide = styled(ColumnFlex)`
+  width: 45%;
+  height: 50%;
+  font-size: 1.5rem;
+`
+const RightSide = styled(ColumnFlex)`
+  width: 45%;
+  height: 50%;
+  font-size: 1.5rem;
+`
+const CodeP = styled.p`
+  background-color: #FAF9F6;
+  font-size: 3rem;
+  color: #000;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 20px;
 `
 
 

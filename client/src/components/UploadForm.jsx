@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import FormData from 'form-data';
 import ProgressModal from './ProgressModal.jsx';
-import { ColumnFlex, QRImg } from './Styles.jsx';
+import { ColumnFlex, QRImg, HalfScreens, VerticalBar, CenterText, ButtonContainer } from './Styles.jsx';
 import CommonButton from './CommonButton.jsx';
 import { motion } from 'framer-motion';
 import BackButton from './BackButton.jsx';
@@ -14,6 +14,7 @@ const UploadForm = ({ uploadToStorage, progress, returnHome }) => {
   const [file, setFile] = useState(null);
   const [uploadRef, setUploadRef] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [noFileSelected, setNoFileSelected] = useState(false);
 
   useEffect(() => {
     QRCode.toDataURL('http://localhost:3000/upload', (err, res) => {
@@ -25,7 +26,7 @@ const UploadForm = ({ uploadToStorage, progress, returnHome }) => {
     e.preventDefault();
     if(!file) {
       //Add better error handling if I have time
-      alert('Please select a file first');
+      setNoFileSelected(true);
       return;
     }
     setUploadRef(uploadToStorage(file));
@@ -34,6 +35,7 @@ const UploadForm = ({ uploadToStorage, progress, returnHome }) => {
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+    setNoFileSelected(false);
   }
 
   const resetLoading = () => {
@@ -67,8 +69,8 @@ const UploadForm = ({ uploadToStorage, progress, returnHome }) => {
         </FileInput>
         <ButtonContainer>
           {/* <BackButton onClick={returnHome} height='50px' width='300px'/> */}
-          <CommonButton type="button" text="Cancel" neg={true} onClick={returnHome}></CommonButton>
-          <CommonButton type="submit" text="Upload"></CommonButton>
+          <CommonButton type="button" text="Cancel" neg="true" onClick={returnHome}></CommonButton>
+          <CommonButton type="submit" text={noFileSelected ? 'No File Selected' : "Upload"} error={`${noFileSelected}`}></CommonButton>
         </ButtonContainer>
         {isLoading ? <ProgressModal progress={progress} uploadRef={uploadRef} resetLoading={resetLoading} /> : null}
       </RightSide>
@@ -97,43 +99,29 @@ const FileInput = styled.label`
     display: none;
   }
 `
-const HalfScreens = styled(ColumnFlex)`
-  flex-direction: row;
-  & p {
-    font-size: 1.5rem;
-  }
-`
 const RightSide = styled(ColumnFlex)`
   width: 45%;
   height: 50%;
   margin-top: 30px;
-`
+  font-size: 1.5rem;
+  `
 const LeftSide = styled(ColumnFlex)`
   width: 45%;
   height: 50%;
+  font-size: 1.5rem;
 `
-const VerticalBar = styled.div`
-  background-color: white;
-  height: 70%;
-  width: 3px;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-`
-const CenterText = styled.div`
-  font-size: 2.5rem;
-  padding: 1rem;
-  background-color: #042A2B;
-`
+
 const FileFlap = styled(motion.div)`
   width: 100%;
-  height: 200px;
+  height: 195px;
   background-color: #ffe9a2;
   position: absolute;
+  top: 5px;
   z-index: 1;
   transform-origin: bottom;
   border-radius: 5px;
 `
+
 const FileTop = styled.div`
   position: absolute;
   width: 100px;
@@ -150,10 +138,5 @@ const FileName = styled.div`
   z-index: 2;
   pointer-events: none;
 `
-const ButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 5px;
-  padding: 0;
-`
+
 export default UploadForm

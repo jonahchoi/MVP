@@ -40,8 +40,8 @@ const Verification = ({ queryFromStorage, navigate, returnHome }) => {
       handleOutputString={handleOutput}
       inputRegExp={/^[A-Za-z0-9]$/}/>
       <ButtonContainer>
-        <CommonButton type="button" text="Cancel" neg={true} onClick={returnHome}></CommonButton>
-        <CommonButton type="submit" text={inputErr ? 'Invalid ID' : 'Submit'}></CommonButton>
+        <CommonButton type="button" text="Cancel" neg="true" onClick={returnHome}></CommonButton>
+        <CommonButton type="submit" text={inputErr ? 'Invalid ID' : 'Submit'} error={`${inputErr}`} ></CommonButton>
       </ButtonContainer>
     </ColumnFlex>
   )

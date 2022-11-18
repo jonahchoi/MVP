@@ -31,6 +31,7 @@ const useStorage = () => {
             code,
             url: link,
             name: file.name,
+            type: file.type,
             createdAt: (new Date()).toISOString()
           };
 

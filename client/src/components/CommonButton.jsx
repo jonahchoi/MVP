@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-const CommonButton = ({text, type, neg, onClick}) => {
+const CommonButton = ({text, type, neg, onClick, error}) => {
 
   const buttonVar = {
     rest: {
@@ -42,15 +42,20 @@ const CommonButton = ({text, type, neg, onClick}) => {
       }
     }
   }
+
   return (
     <Button
     type={type}
     neg={neg}
+    error={error}
     onClick={onClick}
     variants={buttonVar}
     initial={false}
     animate='rest'
     whileHover='hover'
+    whileTap={{
+      scale: 0.95
+    }}
     >
       <Backer variants={backVar} $backgroundColor={neg ? '#D1CCDC' : '#ADB9E3'} custom={0}></Backer>
       <Backer variants={backVar} $backgroundColor={neg ? '#88A2AA':'#ACDDE7'} custom={1}></Backer>
@@ -64,7 +69,9 @@ const Button = styled(motion.button)`
   width: 300px;
   height: 50px;
   margin: 20px;
-  background-color: ${({neg})=> neg ? 'transparent' : '#9EE37D'};
+  background-color: ${({neg, error})=> {
+    return neg ? 'transparent' : error==='true' ? 'red' : '#9EE37D'
+  }};
   border: ${({neg}) => neg ? '3px solid #9EE37D' : 'none'};
   color: ${({neg}) => neg ? '#9EE37D' : '#000'};
   border-radius: 5px;
@@ -80,7 +87,6 @@ const Backer = styled(motion.div)`
   left: 0;
   transform-origin: bottom left;
   background-color: ${props=>props.$backgroundColor};
-  /* z-index: 1; */
   pointer-events: none;
 `
 const Span = styled.span`

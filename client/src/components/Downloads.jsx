@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { ColumnFlex } from './Styles.jsx';
+import { ColumnFlex, ButtonContainer } from './Styles.jsx';
 import CommonButton from './CommonButton.jsx';
+import styled from 'styled-components';
+import DocumentPNG from '../assets/DocumentPNG.png';
+import LoadingSpinner from './LoadingSpinner.jsx';
 
-const Downloads = ({ getFromStorage }) => {
+const Downloads = ({ getFromStorage, returnHome }) => {
   const { id } = useParams();
   const [metadata, setMetadata] = useState(null);
+
+  const isImage = (file) => {
+    return file && file.type.split('/')[0] === 'image';
+  }
 
   useEffect(() => {
     (async () => {
@@ -35,13 +42,26 @@ const Downloads = ({ getFromStorage }) => {
 
   return (
     <ColumnFlex>
-      <img src={metadata?.url} width='35%' height="auto" />
-      <div>
+      {metadata === null
+      ? <LoadingSpinner />
+      : <Thumbnail src={isImage(metadata) ? metadata.url : DocumentPNG} />}
+      <Text>
         {metadata?.name}
-      </div>
-      <CommonButton type="button" onClick={download} text="Download"></CommonButton>
+      </Text>
+      <ButtonContainer>
+        <CommonButton type="button" onClick={returnHome} text="Cancel" neg="true"></CommonButton>
+        <CommonButton type="button" onClick={download} text="Download"></CommonButton>
+      </ButtonContainer>
     </ColumnFlex>
   )
 }
+const Text = styled.p`
+  font-size: 1.5rem;
+`
+const Thumbnail = styled.img`
+  max-width: 35%;
+  max-height: 25%;
+`
+
 
 export default Downloads;
