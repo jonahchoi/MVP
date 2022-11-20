@@ -4,10 +4,9 @@ import styled from 'styled-components';
 import axios from 'axios';
 import FormData from 'form-data';
 import ProgressModal from './ProgressModal.jsx';
-import { ColumnFlex, QRImg, HalfScreens, VerticalBar, CenterText, ButtonContainer } from './Styles.jsx';
-import CommonButton from './CommonButton.jsx';
+import { ColumnFlex, QRImg, HalfScreens, VerticalBar, CenterText, ButtonContainer } from './CommonStyles/Styles.jsx';
+import CommonButton from './CommonStyles/CommonButton.jsx';
 import { motion } from 'framer-motion';
-import BackButton from './BackButton.jsx';
 
 const UploadForm = ({ uploadToStorage, progress, returnHome }) => {
   const [uploadQR, setUploadQR] = useState(null);
@@ -17,7 +16,7 @@ const UploadForm = ({ uploadToStorage, progress, returnHome }) => {
   const [noFileSelected, setNoFileSelected] = useState(false);
 
   useEffect(() => {
-    QRCode.toDataURL('http://localhost:3000/upload', (err, res) => {
+    QRCode.toDataURL('http://localhost:1111/upload', (err, res) => {
       setUploadQR(res);
     })
   }, []);
@@ -55,7 +54,28 @@ const UploadForm = ({ uploadToStorage, progress, returnHome }) => {
         <p>Upload a file here</p>
         <FileInput>
           <FileTop />
+          {file ?
+          <Paper
+          initial={{
+            y: -700,
+          }}
+          animate={{
+            y: 0,
+            transition: {
+              duration: 1,
+              type: 'tween',
+              times: [],
+              ease: 'linear'
+            }
+          }}
+          >———————E</Paper>
+          : null}
           <FileFlap
+          animate={file ? {
+            skew: -6,
+            scaleY: 0.95,
+            transformPerspective: 1000
+          } : false}
           whileHover={{
             skew: -10,
             scaleY: 0.9,
@@ -68,7 +88,6 @@ const UploadForm = ({ uploadToStorage, progress, returnHome }) => {
           <input type="file" onChange={handleFileChange}/>
         </FileInput>
         <ButtonContainer>
-          {/* <BackButton onClick={returnHome} height='50px' width='300px'/> */}
           <CommonButton type="button" text="Cancel" neg="true" onClick={returnHome}></CommonButton>
           <CommonButton type="submit" text={noFileSelected ? 'No File Selected' : "Upload"} error={`${noFileSelected}`}></CommonButton>
         </ButtonContainer>
@@ -117,7 +136,7 @@ const FileFlap = styled(motion.div)`
   background-color: #ffe9a2;
   position: absolute;
   top: 5px;
-  z-index: 1;
+  z-index: 3;
   transform-origin: bottom;
   border-radius: 5px;
 `
@@ -132,10 +151,23 @@ const FileTop = styled.div`
   border-radius: 10px;
   z-index: 1;
 `
+const Paper = styled(motion.div)`
+  width: 95%;
+  height: 190px;
+  background-color: #fff;
+  position: absolute;
+  top: 2;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+`
 const FileName = styled.div`
   color: black;
   font-size: 1.5rem;
-  z-index: 2;
+  padding-left: 25px;
+  z-index: 4;
   pointer-events: none;
 `
 

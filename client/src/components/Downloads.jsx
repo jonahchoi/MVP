@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { ColumnFlex, ButtonContainer } from './Styles.jsx';
-import CommonButton from './CommonButton.jsx';
+import { ColumnFlex, ButtonContainer } from './CommonStyles/Styles.jsx';
+import CommonButton from './CommonStyles/CommonButton.jsx';
 import styled from 'styled-components';
 import DocumentPNG from '../assets/DocumentPNG.png';
-import LoadingSpinner from './LoadingSpinner.jsx';
+import LoadingSpinner from './CommonStyles/LoadingSpinner.jsx';
 
 const Downloads = ({ getFromStorage, returnHome }) => {
   const { id } = useParams();

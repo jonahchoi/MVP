@@ -10,7 +10,8 @@ const useStorage = () => {
   const [err, setErr] = useState(null);
   const [idCode, setIdCode] = useState(null);
 
-  const collectionRef = collection(db, 'files');
+  const filesRef = collection(db, 'files');
+  const userRef = collection(db, 'users');
 
   const uploadToStorage = (file) => {
     const storageRef = ref(storage, `/files/${file.name}`);
@@ -35,7 +36,7 @@ const useStorage = () => {
             createdAt: (new Date()).toISOString()
           };
 
-          let docRef = await addDoc(collectionRef, doc);
+          let docRef = await addDoc(filesRef, doc);
           setFirestoreId(docRef.id);
           setIdCode(code);
         } catch(err) {
@@ -58,12 +59,25 @@ const useStorage = () => {
   }
 
   const queryFromStorage = async (code) => {
-    let q = query(collectionRef, where('code', '==', code));
+    let q = query(filesRef, where('code', '==', code));
 
     let snapshot = await getDocs(q);
 
     if(snapshot.empty) {
       throw new Error('Invalid code');
+    }
+    return snapshot.docs[0].id;
+  }
+
+  const addUser = async (user) => {
+    let doc = addDoc(userRef, user);
+
+  }
+  const getUser = async (email) => {
+    let q = query(userRef, where('authId', '==', authId));
+    let snapshot = await getDocs(q);
+    if(snapshot.empty) {
+      throw new Error('No User');
     }
     return snapshot.docs[0].id;
   }

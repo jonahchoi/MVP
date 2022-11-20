@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, useAnimation } from 'framer-motion';
-import { ColumnFlex } from './Styles.jsx';
-import AnimatedButton from './AnimatedButton.jsx';
+import { ColumnFlex } from './CommonStyles/Styles.jsx';
+import AnimatedButton from './CommonStyles/AnimatedButton.jsx';
+import PaperPlane from '../assets/PaperPlane.png';
 
 /*
   TODO:
@@ -64,6 +65,25 @@ const SelectScreen = ({ firstLoad }) => {
       animate={leftControls}>
         <h2>Sending files is as easy as 1, 2, 3</h2>
         <p>lorem ipsum doloris</p>
+        <motion.div
+        drag
+        dragConstraints={{left: 0, bottom: 0}}
+        style={{position: 'relative'}}
+        animate={{
+          'zIndex': [0, 10],
+          transition: {
+            delay: 2.5
+          }
+        }}
+        >
+          <PlaneImg
+          src={PaperPlane}
+          draggable={false}
+          ></PlaneImg>
+        </motion.div>
+        <motion.div>
+
+        </motion.div>
       </LeftSide>
       <RightSide
       animate={rightControls}>
@@ -118,7 +138,11 @@ const VerticalBar = styled.div`
   height:5px;
   width: 100%;
 `
-
+const PlaneImg = styled(motion.img)`
+  width: 25%;
+  height: auto;
+  position: relative;
+`
 
 
 /* background: $bcolor;

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ColumnFlex } from './Styles.jsx';
+import { ColumnFlex } from './CommonStyles/Styles.jsx';
 import styled from 'styled-components';
-import CommonButton from './CommonButton.jsx';
+import CommonButton from './CommonStyles/CommonButton.jsx';
 import RICIBs from 'react-individual-character-input-boxes';
 
 const Verification = ({ queryFromStorage, navigate, returnHome }) => {

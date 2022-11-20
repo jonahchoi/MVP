@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import QRCode from 'qrcode';
 import styled from 'styled-components';
-import { ColumnFlex, QRImg, HalfScreens, VerticalBar, CenterText } from './Styles.jsx';
-import Socials from './Socials.jsx';
-import CopyToClipboardButton from './CopyButton.jsx';
+import { ColumnFlex, QRImg, HalfScreens, VerticalBar, CenterText } from './CommonStyles/Styles.jsx';
+import Socials from './CommonStyles/Socials.jsx';
+import CopyToClipboardButton from './CommonStyles/CopyButton.jsx';
 
 const Share = ({ getFromStorage, navigate }) => {
   const { id } = useParams();

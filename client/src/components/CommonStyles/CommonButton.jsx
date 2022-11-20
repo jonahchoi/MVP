@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-const CommonButton = ({text, type, neg, onClick, error}) => {
+const CommonButton = ({text, type, neg, onClick, error, children}) => {
 
   const buttonVar = {
     rest: {
@@ -59,7 +59,7 @@ const CommonButton = ({text, type, neg, onClick, error}) => {
     >
       <Backer variants={backVar} $backgroundColor={neg ? '#D1CCDC' : '#ADB9E3'} custom={0}></Backer>
       <Backer variants={backVar} $backgroundColor={neg ? '#88A2AA':'#ACDDE7'} custom={1}></Backer>
-      <Span>{text}</Span>
+      <Span>{children || text}</Span>
     </Button>
   )
 }
@@ -90,9 +90,11 @@ const Backer = styled(motion.div)`
   pointer-events: none;
 `
 const Span = styled.span`
-  display: block;
   position: relative;
   z-index: 5;
   font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 export default CommonButton;

@@ -37,3 +37,28 @@ export const ButtonContainer = styled.div`
   margin-top: 5px;
   padding: 0;
 `
+export const Form = styled(ColumnFlex)`
+  height: 50%;
+  min-height: 350px;
+  width: 400px;
+  background-color: #CBBEB3;
+  border-radius: 10px;
+`
+export const Label = styled.label`
+  font-size: 1.5rem;
+`
+export const Input = styled.input`
+  border-radius: 5px;
+  font-size: 1.5rem;
+  padding: 10px;
+  margin: 5px 0;
+  box-shadow: rgba(0, 0, 0, 0.2) 1.95px 1.95px 2.6px;
+`
+export const ForgotButton = styled.button`
+  background: none;
+  border: none;
+  color: blue;
+  align-self: end;
+  margin-right: 50px;
+  cursor: pointer;
+`
