@@ -3,7 +3,7 @@ import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom'
 import styled, { createGlobalStyle } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import UploadForm from './UploadForm.jsx';
+import UploadScreen from './UploadScreen.jsx';
 import SelectScreen from './SelectScreen.jsx';
 import Share from './Share.jsx';
 import Downloads from './Downloads.jsx';
@@ -93,7 +93,7 @@ const App = () => {
           </Route>
           <Route path='/login' element={<Login navigate={navigate} />}/>
           <Route path='/signup' element={<Signup navigate={navigate} />}/>
-          <Route path='/upload' element={<UploadForm key="upload" uploadToStorage={uploadToStorage} progress={progress} returnHome={returnHome} />} />
+          <Route path='/upload' element={<UploadScreen key="upload" uploadToStorage={uploadToStorage} progress={progress} returnHome={returnHome} />} />
           <Route path='/share/:id' element={<Share key="share" getFromStorage={getFromStorage} navigate={navigate} />} />
           <Route path="/download" element={<Verification key="verify" queryFromStorage={queryFromStorage} navigate={navigate} returnHome={returnHome} />} />
           <Route path='/download/:id' element={<Downloads key="download" getFromStorage={getFromStorage} returnHome={returnHome} />} />

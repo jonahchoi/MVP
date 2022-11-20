@@ -8,7 +8,7 @@ import { ColumnFlex, QRImg, HalfScreens, VerticalBar, CenterText, ButtonContaine
 import CommonButton from './CommonStyles/CommonButton.jsx';
 import { motion } from 'framer-motion';
 
-const UploadForm = ({ uploadToStorage, progress, returnHome }) => {
+const UploadScreen = ({ uploadToStorage, progress, returnHome }) => {
   const [uploadQR, setUploadQR] = useState(null);
   const [file, setFile] = useState(null);
   const [uploadRef, setUploadRef] = useState(null);
@@ -171,4 +171,4 @@ const FileName = styled.div`
   pointer-events: none;
 `
 
-export default UploadForm
+export default UploadScreen;
