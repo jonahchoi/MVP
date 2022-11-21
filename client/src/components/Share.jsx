@@ -18,7 +18,7 @@ const Share = ({ getFromStorage, navigate }) => {
           let result = await getFromStorage(id);
 
           setIdCode(result.code);
-          QRCode.toDataURL(`http://localhost:1111/download/${id}`, (err, res) => {
+          QRCode.toDataURL(`${process.env.REACT_APP_BASEURL}/download/${id}`, (err, res) => {
             setQr(res);
           })
         } catch(err) {
@@ -42,7 +42,7 @@ const Share = ({ getFromStorage, navigate }) => {
         <p>Share a custom ID</p>
         <CodeP>{idCode}</CodeP>
         <CopyToClipboardButton onClick={()=>copyToClip(idCode)} />
-      <Socials link={`http://localhost:1111/download/${id}`} code={idCode} />
+      <Socials link={`${process.env.REACT_APP_BASEURL}/download/${id}`} code={idCode} />
       </RightSide>
     </HalfScreens>
   )

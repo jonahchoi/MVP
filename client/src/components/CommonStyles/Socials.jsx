@@ -5,7 +5,7 @@ const Socials = ({link, code}) => {
   // console.log('link:', link);
   // console.log('code:', code);
 
-  const codeLink = 'http://localhost:1111/download';
+  const codeLink = '${process.env.REACT_APP_BASEURL}/download';
 
   let linkInfo = [
     {

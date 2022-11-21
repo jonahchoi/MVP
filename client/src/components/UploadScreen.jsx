@@ -8,7 +8,7 @@ const UploadScreen = ({ returnHome }) => {
   const [uploadQR, setUploadQR] = useState(null);
 
   useEffect(() => {
-    QRCode.toDataURL('http://localhost:1111/upload', (err, res) => {
+    QRCode.toDataURL('${process.env.REACT_APP_BASEURL}/upload', (err, res) => {
       setUploadQR(res);
     })
   }, []);

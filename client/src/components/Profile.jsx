@@ -11,7 +11,7 @@ const Profile = () => {
   const { currentUser } = useAuth();
 
   useEffect(() => {
-    QRCode.toDataURL(`http://localhost:1111/user/${currentUser.uid}/uploads`, (err, res) => {
+    QRCode.toDataURL(`${process.env.REACT_APP_BASEURL}/user/${currentUser.uid}/uploads`, (err, res) => {
       setPersonalQR(res);
     })
   }, []);
@@ -19,7 +19,7 @@ const Profile = () => {
   return (
     <ColumnFlex>
       <Title>My profile</Title>
-      <HalfScreens>
+      <ProfileContainer>
         <LeftSide>
           <p>My QR Code</p>
           <QRImg src={personalQR} />
@@ -30,16 +30,26 @@ const Profile = () => {
           <p>Email:</p>
           <p>{currentUser.email}</p>
         </RightSide>
-      </HalfScreens>
+      </ProfileContainer>
     </ColumnFlex>
   )
 }
-const LeftSide = styled(ColumnFlex)`
-  height: 45%;
+const ProfileContainer = styled(HalfScreens)`
+  height: 60%;
+  background-color: #CBBEB3;
+  border-radius: 10px;
+  color: #000;
+  width: 50%;
+  justify-content: space-around;
+
   & p {
     font-size: 1.5rem;
     text-align: center;
   }
+`
+const LeftSide = styled(ColumnFlex)`
+  height: 45%;
+
 `
 const RightSide = styled(ColumnFlex)`
   height: 45%;
@@ -47,7 +57,7 @@ const RightSide = styled(ColumnFlex)`
 const Title = styled.h2`
   margin-top: 50px;
   padding: 0;
-  margin-bottom: -100px;
+  margin-bottom: ;
 `
 
 

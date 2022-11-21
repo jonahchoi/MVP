@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { motion, useAnimationFrame } from 'framer-motion';
-//TODO: framer motion progress bar
-const ProgressModal = ({ progress, uploadRef, resetLoading }) => {
-  // const barWidth = 500;
-  // const percentsOffset = (progress - 100) * (barWidth / 100);
+import CommonButton from './CommonStyles/CommonButton.jsx';
 
-  // const [currentPercent, setCurrentPercent] = useState(-barWidth);
+const ProgressModal = ({ progress, uploadRef, resetLoading }) => {
+  const [disable, setDisable] = useState(false);
 
   const stopUpload = () => {
     uploadRef.cancel()
     resetLoading();
   }
+
+  useEffect(() => {
+    if(progress === 100) {
+      let timer = setTimeout(resetLoading, 1500);
+      setDisable(true);
+      return ()=>clearTimeout(timer);
+    }
+  }, [progress]);
 
   return (
     <Modal>
@@ -32,7 +38,7 @@ const ProgressModal = ({ progress, uploadRef, resetLoading }) => {
         </OuterBar>
         <span>{progress}%</span>
       </div>
-      <button type="button" onClick={stopUpload}>Cancel</button>
+      <CommonButton type="button" neg='true' onClick={stopUpload} disabled={disable}>Cancel</CommonButton>
     </Modal>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-const CommonButton = ({text, type, neg, onClick, error, className, children}) => {
+const CommonButton = ({text, type, neg, onClick, error, disabled, className, children}) => {
 
   const buttonVar = {
     rest: {
@@ -45,6 +45,7 @@ const CommonButton = ({text, type, neg, onClick, error, className, children}) =>
 
   return (
     <Button
+    disabled={disabled}
     className={className}
     type={type}
     neg={neg}

@@ -11,6 +11,7 @@ const UploadForm = ({ returnHome, uid }) => {
   const [noFileSelected, setNoFileSelected] = useState(false);
   const [uploadRef, setUploadRef] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [newPrompt, setNewPrompt] = useState(false);
   const { uploadToStorage, progress } = useStorage();
 
   const handleSubmit = (e) => {
@@ -28,10 +29,13 @@ const UploadForm = ({ returnHome, uid }) => {
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
     setNoFileSelected(false);
+    setNewPrompt(false);
   }
 
   const resetLoading = () => {
     setIsLoading(false);
+    setFile(null);
+    setNewPrompt(true);
   }
 
   return (
@@ -68,7 +72,7 @@ const UploadForm = ({ returnHome, uid }) => {
         }}
         ></FileFlap>
         <FileName>
-          {file ? file.name : 'Choose a File...'}
+          {newPrompt ? 'Send another?' : file ? file.name : 'Choose a File...'}
         </FileName>
         <input type="file" onChange={handleFileChange}/>
       </FileInput>

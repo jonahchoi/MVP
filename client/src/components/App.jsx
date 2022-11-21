@@ -64,18 +64,19 @@ const App = () => {
   return(
     <HomePage>
       <GlobalStyle />
-      <Navbar>
+      <Navbar
+      initial={location.pathname === '/' ? true : false}
+      animate={{
+        y: [-60, 0],
+        transition: {
+          duration: 1.5,
+          delay: 2.5
+        }
+      }}
+      >
         <HeaderLink to="/">
           <Logo
             src={location.pathname === '/' ? BlackLogo : WhiteLogo}
-            initial={location.pathname === '/' ? true : false}
-            animate={{
-              opacity: [0, 1],
-              transition: {
-                duration: 0,
-                delay: 1
-              }
-            }}
           />
         </HeaderLink>
         <NavButtonContainer>
@@ -153,7 +154,7 @@ const HeaderLink = styled(Link)`
   padding: 10px 25px;
 `
 
-const Navbar = styled.nav`
+const Navbar = styled(motion.nav)`
   position:sticky;
   top:0;
   left: 0;

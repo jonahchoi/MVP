@@ -44,11 +44,19 @@ const SelectScreen = ({ firstLoad }) => {
         duration: 1.5
       }
     })
-
-    // rightControls.start({
-    //   scaleX: 1,
-    //   transition: {duration: 0}
-    // })
+  }
+  let loadingScreenVar = {
+    'initial':{},
+    'load': {transition: {staggerChildren: 0.3}}
+  }
+  let dotsVar = {
+    'initial': {y : 0},
+    'load': {
+      y: [0, -50, 0],
+      transition: {
+        duration: 0.6
+      }
+    }
   }
 
   useEffect(() => {
@@ -58,15 +66,20 @@ const SelectScreen = ({ firstLoad }) => {
   return (
     <HalfScreens>
       { firstLoad &&
-      <LoadingScreen>
-        <i className="fa-solid fa-desktop"></i>...<i className="fa-solid fa-mobile-screen-button"></i>
+      <LoadingScreen variants={loadingScreenVar} initial='initial' animate='load' >
+        <i className="fa-solid fa-desktop"></i>
+        <Dots variants={dotsVar}>.</Dots>
+        <Dots variants={dotsVar}>.</Dots>
+        <Dots variants={dotsVar}>.</Dots>
+        <i className="fa-solid fa-mobile-screen-button"></i>
       </LoadingScreen> }
       <LeftSide
       animate={leftControls}>
         <h2>Sending files is as easy as 1, 2, 3</h2>
-        <p>lorem ipsum doloris</p>
+        <p>(Toss me!)</p>
         <motion.div
         drag
+        dragSnapToOrigin
         dragConstraints={{left: 0, bottom: 0}}
         style={{position: 'relative'}}
         animate={{
@@ -114,7 +127,7 @@ const RightSide = styled(motion.div)`
 const VerticalContainer = styled(ColumnFlex)`
 
 `
-const LoadingScreen = styled.div`
+const LoadingScreen = styled(motion.div)`
   position: absolute;
   font-size: 10rem;
   color: black;
@@ -137,5 +150,7 @@ const PlaneImg = styled(motion.img)`
   height: auto;
   position: relative;
 `
-
+const Dots = styled(motion.div)`
+  display: inline-block;
+`
 export default SelectScreen;

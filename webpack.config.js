@@ -1,5 +1,6 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: path.join(__dirname, 'client/src', 'index.js'),
@@ -32,6 +33,7 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({
       template: path.join(__dirname, 'client/src', 'index.html'),
-    })
+    }),
+    new Dotenv()
   ]
 }
