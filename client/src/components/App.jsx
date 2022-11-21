@@ -11,7 +11,7 @@ import Verification from './Verification.jsx';
 import Err404 from './Err404.jsx';
 import Login from './Auth/Login.jsx';
 import Signup from './Auth/Signup.jsx';
-import useStorage from '../Hooks/useStorage';
+import { useStorage } from '../Hooks/useStorage';
 import BlackLogo from '../assets/BlackLogo.png';
 import WhiteLogo from '../assets/WhiteLogo.png';
 import NavLink from './NavLink.jsx';
@@ -19,13 +19,14 @@ import PrivateRoute from './Auth/PrivateRoute.jsx';
 import Profile from './Profile.jsx';
 import { ButtonContainer } from './CommonStyles/Styles.jsx';
 import { useAuth } from '../Hooks/useAuth.js';
+import PersonalUpload from './PersonalUpload.jsx';
+import PersonalDownloads from './PersonalDownloads.jsx';
 
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { currentUser } = useAuth();
   const [firstLoad, setFirstLoad] = useState(true);
-
   let {
     uploadToStorage,
     getFromStorage,
@@ -79,7 +80,12 @@ const App = () => {
         </HeaderLink>
         <NavButtonContainer>
           <NavLink title="Home" destination="/" ></NavLink>
-          <NavLink title="Profile" destination="/profile" ></NavLink>
+          {currentUser
+          ? <>
+            <NavLink title="Profile" destination={`/user/${currentUser.uid}/profile`} ></NavLink>
+            <NavLink title="MyFiles" destination={`/user/${currentUser.uid}/downloads`}></NavLink>
+          </>
+          : null}
           {currentUser
           ? <NavLink title="Logout" destination='/'></NavLink>
           : <NavLink title="Login" destination="/login" ></NavLink>}
@@ -87,18 +93,30 @@ const App = () => {
       </Navbar>
       <AnimatePresence>
         <Routes>
-          <Route path='/'element={<SelectScreen key="select" firstLoad={firstLoad} />}/>
-          <Route path='/profile' element={<PrivateRoute navigate={navigate} />} >
-            <Route path='/profile/:id' element={<Profile />} />
+          {/* Home */}
+          <Route path='/' element={<SelectScreen key="select" firstLoad={firstLoad} />}/>
+
+          {/* Login to see profile and personal storage */}
+          <Route path='/user' element={<PrivateRoute navigate={navigate} />} >
+            <Route path='/user/:uid/profile' element={<Profile />} />
+            <Route path='/user/:uid/downloads' element={<PersonalDownloads navigate={navigate} />} />
           </Route>
+
+          {/* login/signup */}
           <Route path='/login' element={<Login navigate={navigate} />}/>
           <Route path='/signup' element={<Signup navigate={navigate} />}/>
-          <Route path='/upload' element={<UploadScreen key="upload" uploadToStorage={uploadToStorage} progress={progress} returnHome={returnHome} />} />
+
+          {/* Uploads */}
+          <Route path='/upload' element={<UploadScreen key="upload" returnHome={returnHome} />} />
+          <Route path='/user/:uid/uploads' element={<PersonalUpload returnHome={returnHome} />} />
+
+          {/* Share */}
           <Route path='/share/:id' element={<Share key="share" getFromStorage={getFromStorage} navigate={navigate} />} />
+
+          {/* Downloads */}
           <Route path="/download" element={<Verification key="verify" queryFromStorage={queryFromStorage} navigate={navigate} returnHome={returnHome} />} />
           <Route path='/download/:id' element={<Downloads key="download" getFromStorage={getFromStorage} returnHome={returnHome} />} />
-          <Route path='/:uid/downloads' element={<div>hi</div>} />
-          <Route path='/:uid/uploads' element={<div>hi</div>} />
+
           <Route path='/*' element={<Err404 key="fourohfour" />} />
         </Routes>
       </AnimatePresence>

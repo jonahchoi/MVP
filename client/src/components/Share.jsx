@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { ColumnFlex, QRImg, HalfScreens, VerticalBar, CenterText } from './CommonStyles/Styles.jsx';
 import Socials from './CommonStyles/Socials.jsx';
 import CopyToClipboardButton from './CommonStyles/CopyButton.jsx';
+import { copyImgToClip, copyToClip } from '../Tools/CopyToClip.js';
 
 const Share = ({ getFromStorage, navigate }) => {
   const { id } = useParams();
@@ -27,34 +28,12 @@ const Share = ({ getFromStorage, navigate }) => {
     }
   }, [id]);
 
-  const copyToClip = async (data) => {
-    try{
-      await navigator.clipboard.writeText(data);
-    } catch(err) {
-      console.log(err);
-    }
-  }
-  const copyImgToClip = async () => {
-    let res = await fetch(qr);
-    res = await res.blob();
-
-    try{
-      await navigator.clipboard.write([
-        new ClipboardItem({
-          'image/png': res
-        })
-      ]);
-    } catch(err) {
-      console.log(err);
-    }
-
-  }
   return (
     <HalfScreens>
       <LeftSide>
         <p>Share a QR Code</p>
         <QRImg src={qr} />
-        <CopyToClipboardButton onClick={copyImgToClip} />
+        <CopyToClipboardButton onClick={()=>copyImgToClip(qr)} />
       </LeftSide>
       <VerticalBar >
         <CenterText>OR</CenterText>

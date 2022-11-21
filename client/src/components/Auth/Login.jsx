@@ -20,7 +20,7 @@ const Login = ({ navigate }) => {
       setLoginError(null)
       let user = await login(emailRef.current.value, pwRef.current.value);
       if(user) {
-        navigate(`/profile/${user.authId}`);
+        navigate(`/user/${user.uid}/profile`);
 
       }
     } catch(err) {

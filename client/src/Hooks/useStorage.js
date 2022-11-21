@@ -1,20 +1,30 @@
 import { storage, db } from '../Firebase/index.js';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { collection, addDoc, doc, getDoc, query, where, getDocs } from 'firebase/firestore';
-import { useState, useEffect } from 'react';
+import { collection, addDoc, doc, getDoc, query, where, getDocs, orderBy } from 'firebase/firestore';
+import React, { useState, useEffect, useContext } from 'react';
 import ShortUniqueId from 'short-unique-id';
 
-const useStorage = () => {
+const StorageContext = React.createContext();
+
+export const useStorage = () => {
+  return useContext(StorageContext);
+}
+
+export const StorageProvider = ({ children }) => {
   const [progress, setProgress] = useState(0);
   const [firestoreId, setFirestoreId] = useState(null);
   const [err, setErr] = useState(null);
   const [idCode, setIdCode] = useState(null);
+  const uniqid = new ShortUniqueId();
 
   const filesRef = collection(db, 'files');
-  const userRef = collection(db, 'users');
 
-  const uploadToStorage = (file) => {
-    const storageRef = ref(storage, `/files/${file.name}`);
+  const uploadToStorage = (file, uid) => {
+    let location = 'files';
+    if(uid) {
+      location = uid;
+    }
+    const storageRef = ref(storage, `/${location}/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on('state_changed',
@@ -26,8 +36,8 @@ const useStorage = () => {
       async () => {
         try{
           let link = await getDownloadURL(uploadTask.snapshot.ref);
-          let uid = new ShortUniqueId();
-          let code = uid();
+
+          let code = uniqid();
           let doc = {
             code,
             url: link,
@@ -36,9 +46,14 @@ const useStorage = () => {
             createdAt: (new Date()).toISOString()
           };
 
-          let docRef = await addDoc(filesRef, doc);
-          setFirestoreId(docRef.id);
-          setIdCode(code);
+          if(uid) {
+            let userRef = collection(db, uid);
+            await addDoc(userRef, doc);
+          } else {
+            let docRef = await addDoc(filesRef, doc);
+            setFirestoreId(docRef.id);
+            setIdCode(code);
+          }
         } catch(err) {
           console.log(err);
         }
@@ -69,20 +84,28 @@ const useStorage = () => {
     return snapshot.docs[0].id;
   }
 
-  const addUser = async (user) => {
-    let doc = addDoc(userRef, user);
-
-  }
-  const getUser = async (email) => {
-    let q = query(userRef, where('authId', '==', authId));
-    let snapshot = await getDocs(q);
+  const queryUserDocs = async (uid) => {
+    let snapshot = await getDocs(collection(db, uid), orderBy('createdAt'));
     if(snapshot.empty) {
-      throw new Error('No User');
+      return [];
     }
-    return snapshot.docs[0].id;
+    return snapshot.docs;
   }
 
-  return {progress, firestoreId, idCode, err, uploadToStorage, getFromStorage, queryFromStorage};
-};
+  const value = {
+    progress,
+    firestoreId,
+    idCode,
+    err,
+    uploadToStorage,
+    getFromStorage,
+    queryFromStorage,
+    queryUserDocs
+  };
 
-export default useStorage;
+  return (
+    <StorageContext.Provider value={value}>
+      {children}
+    </StorageContext.Provider>
+  )
+};

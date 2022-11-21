@@ -93,12 +93,6 @@ const SelectScreen = ({ firstLoad }) => {
           <AnimatedButton direction={'upload'} />
           <VerticalBar />
           <AnimatedButton direction={'download'}/>
-          {/* <ButtonAnimate>
-            <HalfButton to="/upload">Upload</HalfButton>
-          </ButtonAnimate>
-          <ButtonDiv>
-            <HalfButton HalfButton to="/download">Download</HalfButton>
-          </ButtonDiv> */}
         </VerticalContainer>
       </RightSide>
     </HalfScreens>
@@ -143,19 +137,5 @@ const PlaneImg = styled(motion.img)`
   height: auto;
   position: relative;
 `
-
-
-/* background: $bcolor;
-
- border: $bor;
- color: $col;
-@include button(#000,
-  "",
-  2300%,
-  100%,
-  none,
-  #fff);
-  cursor: pointer;
- */
 
 export default SelectScreen;

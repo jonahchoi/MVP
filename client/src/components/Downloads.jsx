@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { ColumnFlex, ButtonContainer } from './CommonStyles/Styles.jsx';
 import CommonButton from './CommonStyles/CommonButton.jsx';
 import styled from 'styled-components';
 import DocumentPNG from '../assets/DocumentPNG.png';
 import LoadingSpinner from './CommonStyles/LoadingSpinner.jsx';
+import { isImage, download } from '../Tools/imageTools.js';
 
 const Downloads = ({ getFromStorage, returnHome }) => {
   const { id } = useParams();
   const [metadata, setMetadata] = useState(null);
-
-  const isImage = (file) => {
-    return file && file.type.split('/')[0] === 'image';
-  }
 
   useEffect(() => {
     (async () => {
@@ -22,21 +18,9 @@ const Downloads = ({ getFromStorage, returnHome }) => {
     })();
   }, [id]);
 
-  const download = async () => {
-    if(metadata) {
-      let result = await axios.get(metadata.url, {
-        responseType: 'blob'
-      });
-      const tempUrl = URL.createObjectURL(result.data);
-      const link = document.createElement('a');
-      link.href = tempUrl;
-      //SET NAME FOR DOWNLOAD
-      link.setAttribute('download', metadata.name);
-      document.body.appendChild(link);
-      link.click();
-
-      document.body.removeChild(link);
-      URL.revokeObjectURL(tempUrl);
+  const handleDownload = () => {
+    if(metadata){
+      download(metadata);
     }
   }
 
@@ -50,7 +34,7 @@ const Downloads = ({ getFromStorage, returnHome }) => {
       </Text>
       <ButtonContainer>
         <CommonButton type="button" onClick={returnHome} text="Cancel" neg="true"></CommonButton>
-        <CommonButton type="button" onClick={download} text="Download"></CommonButton>
+        <CommonButton type="button" onClick={handleDownload} text="Download"></CommonButton>
       </ButtonContainer>
     </ColumnFlex>
   )

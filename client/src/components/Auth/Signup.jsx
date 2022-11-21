@@ -22,7 +22,7 @@ const Signup = ({ navigate }) => {
       setIsLoading(true);
       setSignError(null);
       let user = await signup(emailRef.current.value, pwRef.current.value);
-      navigate(`/profile/${user.authId}`);
+      navigate(`/user/${user.uid}/profile`);
 
     } catch(err) {
       setSignError(err)
