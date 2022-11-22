@@ -70,7 +70,7 @@ const PersonalDownloads = ({ navigate }) => {
           ? <>
               <TooltipArrow initial={false} animate={{rotate: 45}} />
               <Tooltip initial={{opacity: 0}} animate={{opacity: 1}}>
-                Sent On: {doc.createdAt.slice(0, 10)}
+                Sent On: {(new Date(doc.createdAt.seconds * 1000)).toISOString().split('T')[0]}
                 {/* <CommonButton type="button" onClick={navToShare}>Share</CommonButton> */}
                 <SmallerDownloadButton type="button" onClick={(e)=>download(doc)}>Download</SmallerDownloadButton>
               </Tooltip>

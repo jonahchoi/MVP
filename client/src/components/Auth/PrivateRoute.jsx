@@ -9,12 +9,9 @@ const PrivateRoute = ({ navigate }) => {
 
   useEffect(() => {
     if(!currentUser) {
-      console.log('should nav')
       navigate('/login', {replace: true});
     } else {
       navigate(location, {replace: true});
-      // navigate(`/user/${currentUser.uid}/profile`, {replace: true})
-      console.log('hi')
     }
   }, []);
 
