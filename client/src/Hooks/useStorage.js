@@ -3,6 +3,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, doc, getDoc, query, where, getDocs, orderBy } from 'firebase/firestore';
 import React, { useState, useEffect, useContext } from 'react';
 import ShortUniqueId from 'short-unique-id';
+import { serverTimestamp } from 'firebase/firestore';
 
 const StorageContext = React.createContext();
 
@@ -43,7 +44,7 @@ export const StorageProvider = ({ children }) => {
             url: link,
             name: file.name,
             type: file.type,
-            createdAt: (new Date()).toISOString()
+            createdAt: serverTimestamp()
           };
 
           if(uid) {
@@ -85,7 +86,7 @@ export const StorageProvider = ({ children }) => {
   }
 
   const queryUserDocs = async (uid) => {
-    let snapshot = await getDocs(collection(db, uid), orderBy('createdAt'));
+    let snapshot = await getDocs(query(collection(db, uid), orderBy('createdAt', 'desc')));
     if(snapshot.empty) {
       return [];
     }

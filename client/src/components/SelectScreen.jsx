@@ -79,7 +79,6 @@ const SelectScreen = ({ firstLoad }) => {
         <p>(Toss me!)</p>
         <motion.div
         drag
-        dragSnapToOrigin
         dragConstraints={{left: 0, bottom: 0}}
         style={{position: 'relative'}}
         animate={{

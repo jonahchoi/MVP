@@ -27,7 +27,7 @@ const PersonalDownloads = ({ navigate }) => {
     'initial': {},
     'load': {
       transition: {
-        staggerChildren: 0.3,
+        staggerChildren: 0.15,
       }
     }
   }

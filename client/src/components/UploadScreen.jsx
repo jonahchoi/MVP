@@ -3,21 +3,28 @@ import QRCode from 'qrcode';
 import styled from 'styled-components';
 import { ColumnFlex, QRImg, HalfScreens, VerticalBar, CenterText } from './CommonStyles/Styles.jsx';
 import UploadForm from './UploadForm.jsx';
+import QRScanner from './QRScanner.jsx';
+import CommonButton from './CommonStyles/CommonButton.jsx';
 
 const UploadScreen = ({ returnHome }) => {
-  const [uploadQR, setUploadQR] = useState(null);
-
-  useEffect(() => {
-    QRCode.toDataURL('${process.env.REACT_APP_BASEURL}/upload', (err, res) => {
-      setUploadQR(res);
-    })
-  }, []);
+  const [accessCamera, setAccessCamera] = useState(false);
+  /* const { ref: cameraRef } = useZxing({
+    onResult(result) {
+      let link = result.getText();
+      if(link.includes(process.env.REACT_APP_BASEURL)) {
+        window.open(link, '_blank');
+      }
+    },
+    timeBetweenDecodingAttempts: 1000,
+  }) */
 
   return (
     <HalfScreens>
       <LeftSide>
-        <p>Scan to upload from your mobile device</p>
-        <QRImg src={uploadQR} />
+        <p>Scan a PersonalQR to send to a friend</p>
+        {accessCamera
+        ? <QRScanner />
+        : <CamButton><CommonButton type="button" onClick={()=>setAccessCamera(true)}>Access Camera?</CommonButton></CamButton>}
       </LeftSide>
       <VerticalBar>
         <CenterText>OR</CenterText>
@@ -32,7 +39,15 @@ const LeftSide = styled(ColumnFlex)`
   height: 50%;
   font-size: 1.5rem;
 `
-
+const CamButton = styled.div`
+  width: 600px;
+  height: 450px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+`
 
 
 export default UploadScreen;
