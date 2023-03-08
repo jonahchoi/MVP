@@ -92,131 +92,28 @@ In addition to the upload page, users can also navigate from the main screen to 
 <br></br>
 When users are logged in, they can access their personal storage, where all files sent directly to their inbox are stored. From here, they can easily download any of their files.
 <br></br>
-<table>
-  <tr>
-    <td width="25%">
-      <img src="https://user-images.githubusercontent.com/103979716/205186880-e2b95e14-9e90-4596-bf57-d843f07aa209.png" alt="chat lobby">
-    </td>
-    <td>
-      <b>Lobby Chat:</b>  The chat bar opens on the right side of the screen and can be collapsed to allow players more versatlity and control. Chat displays an interactive icon to show any new messages.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <img src="https://user-images.githubusercontent.com/103979716/205187690-935aa0eb-cf4c-426d-bd0c-997e7138b0c0.png" alt="chat gameplay">
-    </td>
-    <td>
-      <b>Gameplay Chat:</b>  Gameplay chat is also on the right side and can be toggled to close as needed.
-    </td>
-  </tr>
-</table>
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- LOGIN FEATURE -->
 ### Login/Signup:
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/104481165/204165920-53d1b3b4-efb4-430a-81db-08a1a29992c0.png" alt="Login" width="500">
+  <img src="https://user-images.githubusercontent.com/104597125/223594551-8f810e0e-3a10-4a89-991b-04611bd49d51.gif" alt="Login and profile" width="500">
 </div>
 <br></br>
-  Users have the ability to login and/or signup for an account.
+  Users can choose to either log in or sign up for an account. Upon logging in, they gain access to their personal storage and personal QR code.
 <br></br>
-<table>
-  <tr>
-    <td width="25%">
-      <img src="https://user-images.githubusercontent.com/104481165/204165920-53d1b3b4-efb4-430a-81db-08a1a29992c0.png" alt="Zoom View Screenshot">
-    </td>
-    <td>
-      <b>Login Page:</b>  User can login with their email and password. If user forgot password, they can reset it with the 'forget password' button. User can signup for a new account by clicking the 'signup' button.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <img src="https://user-images.githubusercontent.com/104481165/204165932-b302ee74-4c7b-4e59-bb70-8a429b89cd3f.png" alt="Zoom View Screenshot">
-    </td>
-    <td>
-      <b>Account Registration Page:</b>  In order to register for an account, user needs to input a username, email, password, and confirm password.
-    </td>
-  </tr>
-</table>
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
-<!-- PROFILE FEATURE -->
-### Profile:
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/104481165/204163788-b6bb9c17-47cc-499c-b8fc-cf2cb598c907.png" alt="Profile Page" width="500">
-</div>
-<br></br>
-The profile page is only available for users who has an account. The user can access their profile page to see their username, avatar, game info, and friends. User also has the ability to change their username and avatar.
-<br></br>
-<table>
-  <tr>
-    <td width="25%">
-      <img src="https://user-images.githubusercontent.com/104481165/204163938-3902fa09-64d9-46a6-bdb9-2d03e4585cb4.png" alt="Guest Account">
-    </td>
-    <td>
-      <b>Guest Account:</b>  Guest accounts have a defaulted avatar with a random guest ID number. They have the option to login to be able to view their profile.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <img src="https://user-images.githubusercontent.com/104481165/204164028-25fa396b-e1b4-4310-a9d7-60dbe9dab7d3.png" alt="User Account">
-    </td>
-    <td>
-      <b>User Account:</b>  User account will show the user's avatar and their username in the landing page. They also have the option to search for other users and add them as friend.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <img src="https://user-images.githubusercontent.com/104481165/204165158-3dcf901d-4c76-4c45-b189-8b43662b454b.png" alt="Search Profile">
-    </td>
-    <td>
-      <b>Edit Username/Avatar:</b> User can edit their username. New username must be different than the ones from the database. Users can also choose from one of the 9 avatars ta
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <img src="https://user-images.githubusercontent.com/104481165/204164150-0ba2878e-c299-44c0-a90b-84dd6b6df87f.png" alt="Friend's Profile">
-    </td>
-    <td>
-      <b>Friend's Profile:</b> Clicking on a friend's profile in the user's profile page will render the page to view the friend's profile.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <img src="https://user-images.githubusercontent.com/104481165/204164321-a7d4ad8b-ed7d-4382-93a6-fa96aad8cb40.png" alt="Search Profile">
-    </td>
-    <td>
-      <b>Search:</b>  User can search for other users by their username. User can then view the profile page upon clicking on the username.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <img src="https://user-images.githubusercontent.com/104481165/204164338-3eef63d2-3f95-4436-875d-292828fd49d8.png" alt="Search Profile">
-    </td>
-    <td>
-      <b>Add Friend:</b>  Searched profile page has the option to add the user as a friend. This will add the profile to the user's friend list.
-    </td>
-  </tr>
-</table>
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 
 ## Getting Started:
-  - Install dependencies in Client:
-    1. cd into blueocean/client
-    2. `npm install`
+  - Install dependencies:
+    1. cd into root directory
+    2. run `npm install` in the terminal
   -  Make a copy of `example.env` and rename to `.env`
-  - Install dependencies in Server:
-    1. cd into blueocean/server
-    2. `npm install`
+  - Create a new firebase app, and add the config properties to `.env`
   - Run Servers:
-    1. In client - `npm run start`
-        - client run on PORT 3000
-    2. In server - `npm run server`
-        - server runs on PORT 5001
+    1. From root: `npm run deploy`
 
-  - Launch site: http://localhost:3000
+  - Launch site: http://localhost:1111
 
 <p align="right">(<a href="#top">back to top</a>)</p>
