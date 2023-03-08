@@ -1,6 +1,7 @@
 <h1 align="center">
   <br>
-  <img width="429" alt="QuickSend" src="https://user-images.githubusercontent.com/104597125/223588216-7525f6f0-a6a1-4afd-9535-b68574d6b654.png">
+  <img width="429" alt="QuickSend" src="https://user-images.githubusercontent.com/104597125/223588216-7525f6f0-a6a1-4afd-9535-b68574d6b654.png#gh-dark-mode-only">
+  <img width="429" alt="QuickSend" src="https://user-images.githubusercontent.com/104597125/223604816-54277534-feab-4ca4-9ab9-2d5d99ef8a38.png#gh-light-mode-only">
   <br>
 </h1>
 
